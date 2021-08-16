@@ -3,17 +3,19 @@
 //Start or Controll function - get needed values
 function getValues() {
     // get unique input values from the page
-    let startValue = document.getElementById('startValue').value;
-    let endValue = document.getElementById('endValue').value;
+    let loanAmount = document.getElementById('loanAmount').value;
+    let numberPayments = document.getElementById('numberPayments').value;
+    let interestRate = document.getElementById('interestRate').value;
 
     // Use the "parseInt()" function to cast/convert from string input to integers    
-    startValue = parseInt(startValue);
-    endValue = parseInt(endValue);
+    loanAmount = parseInt(loanAmount);
+    numberPayments = parseInt(numberPayments);
+    interestRate = parseInt(interestRate);
 
     // validate - check if above parsed input are integers
-    if (Number.isInteger(startValue) && Number.isInteger(endValue)) {
+    if (Number.isInteger(loanAmount) && Number.isInteger(numberPayments) && Number.isInteger(interestRate)) {
         // if true call generateNumbers() - generate the numbers return them in an array
-        let numbers = generateNumbers(startValue, endValue);
+        let numbers = generateNumbers(loanAmount, numberPayments, interestRate);
 
         // Call the display function with "numbers" variable to display results on the page 
         displayNumbers(numbers);
