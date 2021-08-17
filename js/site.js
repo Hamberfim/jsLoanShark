@@ -1,100 +1,85 @@
 "use strict";
 
-//Start or Controll function - get needed values
-function getValues() {
-    // get unique input values from the page
-    let loanAmount = document.getElementById('loanAmount').value;
-    let numberPayments = document.getElementById('numberPayments').value;
-    let interestRate = document.getElementById('interestRate').value;
-
-
-    // Use the "parseInt()" function to cast/convert from string input to integers    
-    loanAmount = parseInt(loanAmount);
-    numberPayments = parseInt(numberPayments);
-    interestRate = parseFloat(interestRate);
-
-    // validate - check if above parsed input are integers
-    if (loanAmount > 0 && Number.isInteger(loanAmount) && numberPayments > 0 && Number.isInteger(numberPayments) && interestRate > 0 && Number.isInteger(interestRate)) {
-        // TODO: should call a function
-        
-        // if true calculate interest and add to principle 
-        let elTotalPrincipal = document.getElementById('totalPrincipal');
-        elTotalPrincipal.textContent = `$${loanAmount.toFixed(2)}`;
-
-        let totalInterest = (loanAmount * (interestRate * 0.01)/numberPayments);
-        let elTotalInterest = document.getElementById('totalInterest');
-        elTotalInterest.textContent = `${totalInterest.toFixed(2)}`;
-
-        let elTotalCost = document.getElementById('totalCost');
-        let totalCost  =  totalInterest + loanAmount;
-        elTotalCost.textContent = `$${totalCost.toFixed(2)}`
-
-
-        // Call the display function with "numbers" variable to display results on the page 
-        //displayNumbers(numbers);
-
-    } else {
-        alert("You must enter numeric values in each input field.");
-
+//Calculate the payment for the loan
+function calcPayment(amount, rate, term) {
+    return (amount * (rate / 1200)) / (1 - Math.pow(1 + rate / 1200, -term));
+  }
+  
+  //calculate the interst for the current balance of the loan
+  function calcInterest(balance, rate) {
+    return balance * (rate / 1200);
+  }
+  
+  //Build the amoritization schedule
+  function buildSchedule() {
+    let amount = document.getElementById("lamount").value;
+    let rate = document.getElementById("lrate").value;
+    let term = document.getElementById("lterm").value;
+  
+    //get the table we are going to add to.
+    let tableBody = document.getElementById("scheduleBody");
+    let template = document.getElementById("scheduleTemplate");
+  
+    //clear the table for previous calculations
+    tableBody.innerHTML = "";
+  
+    //setup some variables to hold the value in the schedule
+    let payment = calcPayment(amount, rate, term);
+    let balance = amount;
+    let totalInterest = 0;
+    let monthlyPrincipal = 0;
+    let monthlyInterest = 0;
+    let monthlyTotalInterest = 0;
+  
+    //create a loop for each month of the loan term
+    for (let month = 1; month <= term; month++) {
+      monthlyInterest = calcInterest(balance, rate);
+      totalInterest += monthlyInterest;
+      monthlyPrincipal = payment - monthlyInterest;
+      balance = balance - monthlyPrincipal;
+  
+      //get a clone row template
+      let clone = template.content.cloneNode(true);
+      //grab only the columns in the template
+      let columns = clone.querySelectorAll("td");
+  
+      //build the row
+      //we know that there are six columns in our template
+      columns[0].textContent = month;
+      columns[1].textContent = payment.toFixed(2);
+      columns[2].textContent = monthlyPrincipal.toFixed(2);
+      columns[3].textContent = monthlyInterest.toFixed(2);
+      columns[4].textContent = totalInterest.toFixed(2);
+      columns[5].textContent = balance.toFixed(2);
+  
+      //append to the table
+      tableBody.appendChild(clone);
     }
+  
+    //Build out the summary area
+    let labelPrincipal = document.getElementById("totalPrincipal");
+    labelPrincipal.innerHTML = Number(amount).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    });
 
-}
+    let labelInterest = document.getElementById("totalInterest");
+    labelInterest.innerHTML = totalInterest.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    });
 
-//Logic function - Generate numbers based on the start and endvalue
-function calculateLoan(loanAmount, numberPayments, interestRate) {
+    let paymentdiv = document.getElementById("payment");
+    paymentdiv.innerHTML = payment.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    });
 
-    
+    let totalCostDiv = document.getElementById("totalCost");
+    let totalCost = Number(amount) + totalInterest;
+    totalCostDiv.innerHTML = Number(totalCost).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    });
 
-    console.log(totalMonthlyPayment);
-
-    // Declare an array variable called numbers and set it equal to []
-    //let numbers = [];
-
-
-    // loop over the sValue and eValue from start to end.
-    // for (let i = sValue; i <= eValue; i++) {
-    //     // add each number to the "numbers" array
-    //     numbers.push(i);
-
-    // }
-
-    //Return the "numbers" array
-    //return totalMonthlyPayment;
-
-}
-
-
-//View/Display Function - display the results (numbers) to the screen
-function displayNumbers(numbers) {
-
-
-    
-    // // Delare a variable called "className" and set it equal to 'even' for use with displaying even numbers
-    // let className = 'even';
-
-    // //Decalre a variable called "templateRows" and set it equal to ''
-    // let templateRows = "";
-
-    // // loop through the numbers array- allow loop to run up to numbers.length
-
-    // for (let i = 0; i < numbers.length; i++) {
-    //     // declare "number" variable and set it equal to numbers[index]
-    //     let number = numbers[i];
-
-    //     // use "if-else-statement" to test each number against the zero modulus(%). (ie. number % 2 == 0)
-    //     if (number % 2 == 0) {
-    //         className = 'even';
-    //         // concate loop
-    //         templateRows += `<tr><td class="${className}">${number}</td></tr>`;
-    //     } else {
-    //         className = 'odd';
-    //         // concate loop
-    //         templateRows += `<tr><td class="${className}">${number}</td></tr>`;
-    //     }
-
-    // }
-
-    // // HTML page Markup - set the "results" element/innerHTML to the concatenated "templateRows"
-    // document.getElementById('results').innerHTML = templateRows;
-    
-}
+  }

@@ -106,3 +106,49 @@ code[class*="language-"], pre[class*="language-"] {
     word-wrap: break-word;
     font-size: 1.5rem;
 }
+
+.loanForm {
+    background-color: rgb(231, 231, 231);
+    margin: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.loanForm input {
+    width: 100%;
+    padding: .5rem;
+}
+
+.loanForm button {
+    float: right;
+}
+
+.loanInfo {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+#paymentTitle {
+    text-align: center;
+    font-size: 1.5rem;
+    font-style: italic;
+}
+
+#payment {
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+#loanBreakDown {
+    text-align: center;
+}
+
+#tableheader {
+    background-color: rgb(0, 153, 255);
+}
+
+#totalCost {
+    font-weight: bold;
+}
