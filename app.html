@@ -55,11 +55,10 @@
                 <div class="col-12">
                     <h4 class="display-6 fw-bold mb-1 mt-3 mt-md-auto"><span class="hundredTitle text-nowrap">JS Loan
                             Shark</span>:<span class="text-nowrap"> A Coding Project</span></h4>
-                    <h5 class="lead">A javascript coding exercise. A program that that generates an amortization
-                        schedule for a simple interest loan.</h5>
+                    <h5 class="lead">A javascript coding exercise. A program that that calculates interest and monthly payments on a loan.</h5>
                     <h4 class="mt-3 border-bottom border-1 border-dark">Instructions</h4>
-                    <p>Enter a loan amount in dollars, the number of monthly payments and an interest rate. Click the
-                        <span class="fw-bold">'Calculate'</span> button to generate an amortization/payment schedule.</p>
+                    <p>Enter a loan amount in dollars, the number of years to repay and an interest rate. Click the
+                        <span class="fw-bold">'Calculate'</span> button to generate information about the total interest accrued, monthy payments and the total payment amount.</p>
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-2">
@@ -70,7 +69,7 @@
                     <input type="number" name="loanAmount" id="loanAmount" class="form-control"
                         placeholder="Loan Amount" value=0 aria-label="Loan Amount">
 
-                    <label for="numberPayments">How many Monthly Payments:</label>
+                    <label for="numberPayments">Payment Period (years):</label>
                     <input type="number" name="numberPayments" id="numberPayments" class="form-control"
                         placeholder="Payments" value=0 aria-label="Payments">
 
@@ -83,13 +82,14 @@
 
                 </div>
                 <div class="col-sm-12 col-md-6 mt-1">
-                    <div class="p-3">
+                    <div class="p-3 mt-4">
                         <!-- Monthly payments -->
-                        <h5 class="d-flex justify-content-center mb-3"><em>Your Monthly Payments</em></h5>
-
-                        <div>Total Principal: <span id="totalPrincipal"><!-- Total Principal --></span></div>
-                        <div>Total Interest: <span id="totalInterest"><!-- Total Interest --></span></div>
-                        <div>Total Cost: <span id="totalCost"><!-- Total Cost --></span></div>
+                        <h6 class="d-flex justify-content-center mb-3"><em>Your Monthly Payments</em></h6>
+                        <h1 id="monthlyPayment" class="fw-bold d-flex justify-content-center"><!-- monthly Payment --></h1>
+                        <br>
+                        <div class="d-flex justify-content-end">Initial Loan Principal:&nbsp;<span id="totalPrincipal" class="fw-bold"><!-- Total Principal --></span></div>
+                        <div class="d-flex justify-content-end">Total Interest:&nbsp;<span id="totalInterest" class="fw-bold"><!-- Total Interest --></span></div>
+                        <div class="d-flex justify-content-end">Total Payment:&nbsp;<span id="totalCost" class="fw-bold"><!-- Total Cost --></span></div>
                     </div>
                 </div>
             </div>
