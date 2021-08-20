@@ -12,9 +12,9 @@ function calcPayment(amount, rate, term) {
   
   //Build the amoritization schedule
   function buildSchedule() {
-    let amount = document.getElementById("lamount").value;
-    let rate = document.getElementById("lrate").value;
-    let term = document.getElementById("lterm").value;
+    let amount = document.getElementById("loanAmount").value;
+    let term = document.getElementById("loanTerm").value;
+    let rate = document.getElementById("loanRate").value;
   
     //get the table we are going to add to.
     let tableBody = document.getElementById("scheduleBody");
