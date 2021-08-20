@@ -29,7 +29,6 @@ function calcPayment(amount, rate, term) {
     let totalInterest = 0;
     let monthlyPrincipal = 0;
     let monthlyInterest = 0;
-    let monthlyTotalInterest = 0;
   
     //create a loop for each month of the loan term
     for (let month = 1; month <= term; month++) {
@@ -43,8 +42,7 @@ function calcPayment(amount, rate, term) {
       //grab only the columns in the template
       let columns = clone.querySelectorAll("td");
   
-      //build the row
-      //we know that there are six columns in our template
+      //build the row with six columns in our template
       columns[0].textContent = month;
       columns[1].textContent = payment.toFixed(2);
       columns[2].textContent = monthlyPrincipal.toFixed(2);
@@ -56,7 +54,7 @@ function calcPayment(amount, rate, term) {
       tableBody.appendChild(clone);
     }
   
-    //Build out the summary area
+    //Build out the summary area to the right
     let labelPrincipal = document.getElementById("totalPrincipal");
     labelPrincipal.innerHTML = Number(amount).toLocaleString('en-US', {
       style: 'currency',
